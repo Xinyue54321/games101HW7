@@ -68,6 +68,7 @@ C:\Users\Xinyue54321\source\repos\zuoye2\zuoye7\Renderer.cpp(25,28): warning C40
 C:\Users\Xinyue54321\source\repos\zuoye2\zuoye7\Renderer.cpp(26,32): warning C4018: “<”: 有符号/无符号不匹配
 C:\Users\Xinyue54321\source\repos\zuoye2\zuoye7\Renderer.cpp(28,21): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
 C:\Users\Xinyue54321\source\repos\zuoye2\zuoye7\Renderer.cpp(30,21): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+C:\Users\Xinyue54321\source\repos\zuoye2\zuoye7\Renderer.cpp(40,32): error C3861: “castRay”: 找不到标识符
   Scene.cpp
 C:\Users\Xinyue54321\source\repos\zuoye2\zuoye7\global.hpp(19,46): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
 C:\Users\Xinyue54321\source\repos\zuoye2\zuoye7\global.hpp(21,17): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
