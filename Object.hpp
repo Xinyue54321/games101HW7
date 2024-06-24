@@ -12,7 +12,7 @@
 #include "Intersection.hpp"
 
 class Object
-{
+{//全是虚函数，只有定义了接口
 public:
     Object() {}
     virtual ~Object() {}

@@ -26,7 +26,7 @@ BVHAccel::BVHAccel(std::vector<Object*> p, int maxPrimsInNode,
 }
 
 BVHBuildNode* BVHAccel::recursiveBuild(std::vector<Object*> objects)
-{
+{//建立一个bvh节点，递归算法，所以把树直接建好了
     BVHBuildNode* node = new BVHBuildNode();
 
     // Compute bounds of all primitives in BVH node
@@ -54,20 +54,20 @@ BVHBuildNode* BVHAccel::recursiveBuild(std::vector<Object*> objects)
             centroidBounds =
                 Union(centroidBounds, objects[i]->getBounds().Centroid());
         int dim = centroidBounds.maxExtent();
-        switch (dim) {
-        case 0:
+        switch (dim) {//将最长边划分
+        case 0://按照x轴划分
             std::sort(objects.begin(), objects.end(), [](auto f1, auto f2) {
                 return f1->getBounds().Centroid().x <
                        f2->getBounds().Centroid().x;
             });
             break;
-        case 1:
+        case 1://按y
             std::sort(objects.begin(), objects.end(), [](auto f1, auto f2) {
                 return f1->getBounds().Centroid().y <
                        f2->getBounds().Centroid().y;
             });
             break;
-        case 2:
+        case 2://按z
             std::sort(objects.begin(), objects.end(), [](auto f1, auto f2) {
                 return f1->getBounds().Centroid().z <
                        f2->getBounds().Centroid().z;
@@ -82,7 +82,7 @@ BVHBuildNode* BVHAccel::recursiveBuild(std::vector<Object*> objects)
         auto leftshapes = std::vector<Object*>(beginning, middling);
         auto rightshapes = std::vector<Object*>(middling, ending);
 
-        assert(objects.size() == (leftshapes.size() + rightshapes.size()));
+        assert(objects.size() == (leftshapes.size() + rightshapes.size()));//检查有没有漏掉或者多算object，有错中止
 
         node->left = recursiveBuild(leftshapes);
         node->right = recursiveBuild(rightshapes);
@@ -105,5 +105,16 @@ Intersection BVHAccel::Intersect(const Ray& ray) const
 Intersection BVHAccel::getIntersection(BVHBuildNode* node, const Ray& ray) const
 {
     // TODO Traverse the BVH to find intersection
-
+    Intersection left, right;
+    if (!node->left) {
+        return node->object->getIntersection(ray);
+    }
+    
+    if (node->left->bounds.IntersectP(ray, ray.direction_inv, std::array<int, 3> {(int)ray.direction.x, (int)ray.direction.y, (int)ray.direction.z})) {
+        left = getIntersection(node->left, ray);
+    }
+    if (node->right->bounds.IntersectP(ray, ray.direction_inv, std::array<int, 3> {(int)ray.direction.x, (int)ray.direction.y, (int)ray.direction.z})) {
+        right = getIntersection(node->right, ray);
+    }
+    return left.distance < right.distance ? left : right;
 }

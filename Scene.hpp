@@ -23,11 +23,10 @@ public:
     Vector3f backgroundColor = Vector3f(0.235294, 0.67451, 0.843137);
     int maxDepth = 5;
 
-    Scene(int w, int h) : width(w), height(h)
-    {}
+    Scene(int w, int h) : width(w), height(h){};
 
-    void Add(Object *object) { objects.push_back(object); }
-    void Add(std::unique_ptr<Light> light) { lights.push_back(std::move(light)); }
+    void Add(Object *object) { objects.push_back(object); }//添加物体
+    void Add(std::unique_ptr<Light> light) { lights.push_back(std::move(light)); }//添加光源
 
     const std::vector<Object*>& get_objects() const { return objects; }
     const std::vector<std::unique_ptr<Light> >&  get_lights() const { return lights; }

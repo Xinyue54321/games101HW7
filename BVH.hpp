@@ -41,16 +41,16 @@ public:
     BVHBuildNode* recursiveBuild(std::vector<Object*>objects);
 
     // BVHAccel Private Data
-    const int maxPrimsInNode;
-    const SplitMethod splitMethod;
+    const int maxPrimsInNode;//最大节点数
+    const SplitMethod splitMethod;//划分方法
     std::vector<Object*> primitives;
 };
 
-struct BVHBuildNode {
-    Bounds3 bounds;
-    BVHBuildNode *left;
-    BVHBuildNode *right;
-    Object* object;
+struct BVHBuildNode {//bvh节点
+    Bounds3 bounds;//盒子
+    BVHBuildNode *left;//左孩子
+    BVHBuildNode *right;//右孩子
+    Object* object;//内包含的物体
 
 public:
     int splitAxis=0, firstPrimOffset=0, nPrimitives=0;
