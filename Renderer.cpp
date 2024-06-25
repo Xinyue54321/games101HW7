@@ -135,7 +135,10 @@ void Renderer::Render(const Scene& scene)
             dir = normalize(dir);
             Ray ray(eye_pos, dir);
             //Intersection point = bvh.Intersect(ray);
-            framebuffer[m++] = scene.castRay(ray, 0);
+            auto color = scene.castRay(ray, 0);
+            framebuffer[m++] = color;
+            //std::cout << color << std::endl;
+            //framebuffer[m++] = scene.castRay(ray, 0);
         }
         UpdateProgress(j / (float)scene.height);
     }
