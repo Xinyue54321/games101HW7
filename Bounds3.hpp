@@ -80,7 +80,7 @@ class Bounds3
                 p.y <= b.pMax.y && p.z >= b.pMin.z && p.z <= b.pMax.z);
     }
     inline const Vector3f& operator[](int i) const
-    {//获得最大或者最小值，为什么写在这？
+    {//获得小顶点或者大顶点
         return (i == 0) ? pMin : pMax;
     }
 
@@ -105,7 +105,7 @@ inline bool Bounds3::IntersectP(const Ray& ray, const Vector3f& invDir,
 }
 
 inline Bounds3 Union(const Bounds3& b1, const Bounds3& b2)
-{//求b1和b2的交
+{//求b1和b2的并集
     Bounds3 ret;
     ret.pMin = Vector3f::Min(b1.pMin, b2.pMin);
     ret.pMax = Vector3f::Max(b1.pMax, b2.pMax);
